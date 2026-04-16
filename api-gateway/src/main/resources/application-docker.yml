@@ -3,3 +3,5 @@ services:
     url: http://user-service:8081
   loan-service:
     url: http://loan-service:8082
+  notification-service:
+    url: http://notification-service:8083

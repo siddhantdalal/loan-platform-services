@@ -108,6 +108,18 @@ services:
 
   # ==================== Application Services ====================
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    networks:
+      - loan-platform-network
+
   api-gateway:
     build:
       context: .
@@ -120,6 +132,7 @@ services:
     depends_on:
       - user-service
       - loan-service
+      - notification-service
     networks:
       - loan-platform-network
 

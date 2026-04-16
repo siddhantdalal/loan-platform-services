@@ -15,6 +15,9 @@ public class RouteConfig {
     @Value("${services.loan-service.url}")
     private String loanServiceUrl;
 
+    @Value("${services.notification-service.url}")
+    private String notificationServiceUrl;
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -27,6 +30,9 @@ public class RouteConfig {
                 .route("loan-service", r -> r
                         .path("/api/loans/**")
                         .uri(loanServiceUrl))
+                .route("notification-service", r -> r
+                        .path("/api/notifications/**")
+                        .uri(notificationServiceUrl))
                 .build();
     }
 }
