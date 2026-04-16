@@ -47,6 +47,7 @@ export const userApi = {
 // Loan APIs
 export const loanApi = {
   submit: (data) => api.post('/api/loans', data),
+  getAll: () => api.get('/api/loans'),
   getById: (id) => api.get(`/api/loans/${id}`),
   getByUser: (userId) => api.get(`/api/loans/user/${userId}`),
   processDecision: (id, data) => api.put(`/api/loans/${id}/decision`, data),

@@ -15,4 +15,6 @@ public interface LoanService {
     List<LoanApplicationDto> getApplicationsByUserId(Long userId);
 
     LoanApplicationDto processDecision(Long id, LoanDecisionRequest decision);
+
+    List<LoanApplicationDto> getAllApplications();
 }

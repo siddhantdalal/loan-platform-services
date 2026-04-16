@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { notificationApi } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -19,11 +19,7 @@ export default function Notifications() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchNotifications();
-  }, [user]);
-
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     if (!user?.id) return;
     try {
       const response = await notificationApi.getByUser(user.id);
@@ -35,7 +31,11 @@ export default function Notifications() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
 
   if (loading) {
     return (

@@ -113,6 +113,13 @@ public class LoanServiceImpl implements LoanService {
         return dto;
     }
 
+    @Override
+    public List<LoanApplicationDto> getAllApplications() {
+        return loanRepository.findAll().stream()
+                .map(LoanMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     private BigDecimal calculateInterestRate(BigDecimal amount, Integer termMonths) {
         // Simple interest rate calculation: base rate + risk adjustment
         BigDecimal amountRisk = amount.multiply(AMOUNT_FACTOR);

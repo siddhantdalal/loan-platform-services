@@ -23,19 +23,10 @@ export default function AdminPanel() {
 
   const fetchAllLoans = async () => {
     try {
-      // Fetch loans for a range of user IDs to simulate admin view
-      const promises = [];
-      for (let i = 1; i <= 20; i++) {
-        promises.push(
-          loanApi.getByUser(i).catch(() => ({ data: { data: [] } }))
-        );
-      }
-      const responses = await Promise.all(promises);
-      const allLoans = responses.flatMap((r) => r.data?.data || []);
-      // Deduplicate by ID
-      const uniqueLoans = Array.from(new Map(allLoans.map((l) => [l.id, l])).values());
-      uniqueLoans.sort((a, b) => b.id - a.id);
-      setLoans(uniqueLoans);
+      const response = await loanApi.getAll();
+      const allLoans = response.data?.data || [];
+      allLoans.sort((a, b) => b.id - a.id);
+      setLoans(allLoans);
     } catch (err) {
       setError('Failed to load loan applications.');
     } finally {

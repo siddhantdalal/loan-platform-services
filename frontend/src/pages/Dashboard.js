@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { loanApi } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -27,11 +27,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchLoans();
-  }, [user]);
-
-  const fetchLoans = async () => {
+  const fetchLoans = useCallback(async () => {
     if (!user?.id) return;
     try {
       const response = await loanApi.getByUser(user.id);
@@ -41,7 +37,11 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    fetchLoans();
+  }, [fetchLoans]);
 
   const stats = {
     total: loans.length,

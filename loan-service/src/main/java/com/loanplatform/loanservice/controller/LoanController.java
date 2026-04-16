@@ -29,6 +29,12 @@ public class LoanController {
                 .body(ApiResponse.success(loan, "Loan application submitted successfully"));
     }
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<LoanApplicationDto>>> getAllApplications() {
+        List<LoanApplicationDto> loans = loanService.getAllApplications();
+        return ResponseEntity.ok(ApiResponse.success(loans));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<LoanApplicationDto>> getApplicationById(@PathVariable Long id) {
         LoanApplicationDto loan = loanService.getApplicationById(id);
