@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-loans:5432/loans_db
+  kafka:
+    bootstrap-servers: kafka:29092
+  data:
+    redis:
+      host: redis

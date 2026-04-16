@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+
+services:
+  user-service:
+    url: http://localhost:8081
+  loan-service:
+    url: http://localhost:8082
+
+jwt:
+  secret: "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkw"
+  expiration-ms: 86400000
+
+logging:
+  level:
+    com.loanplatform.gateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG
